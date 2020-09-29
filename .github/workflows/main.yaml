@@ -13,7 +13,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     container:
-      # image: prontotools/alpine-git-curl
+      image: alphine
       options: --user root -v /__w/${{ github.workspace }}:/scripts/:rw
     env:
       working-directory: ./
@@ -26,7 +26,7 @@ jobs:
         GITHUB_TOKEN: ${{secrets.ACCESS_TOKEN}}
         REPO_OWNER: Anusha-Kolli
       run: |
-        apt add git curl
+        apk --update add bash curl git
         ./scripts/tag.sh
 
         
