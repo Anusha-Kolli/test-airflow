@@ -40,7 +40,6 @@ function check_changelog() {
 
 function main() {
   check_changelog
-
 }
 
 main
