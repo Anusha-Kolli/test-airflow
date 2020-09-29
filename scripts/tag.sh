@@ -4,7 +4,7 @@ current_tag=$(git tag --list --merged HEAD --sort=-committerdate | grep -E '^v?[
 
 current_commit=$(git rev-parse HEAD)
 
-new_tag="$(awk  -v tag='"$current_tag"' '/Unreleased/ {p=1;next}; /'"$current_tag"'/ {p=0} p' CHANGELOG.md | grep -E "^## " | awk -F '[\\[\\]]' '{print $2}')"
+new_tag=$1
 
 remote=$(git config --get remote.origin.url)
 repo=$(basename $remote .git)
