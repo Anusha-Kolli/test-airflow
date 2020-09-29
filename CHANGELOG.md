@@ -4,6 +4,23 @@
 
 ## [Unreleased]
 
+## [1.7.0]- 2020-09-29
+### Added:
+- new: nothing to update
+- new: appending new
+- fix: trying new
+### Fixed:
+- fix: test
+- fix: trying new
+### Updated:
+- new: nothing to update
+- feat: test update
+### Removed: 
+- remove: test
+- remove: removing lines from readme
+### Docs:
+- docs: updating doc
+
 ## [1.6.0]- 2020-09-29
 ### Added:
 - new: nothing to update
