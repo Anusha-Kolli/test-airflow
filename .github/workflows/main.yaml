@@ -13,7 +13,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     container:
-      image: ellerbrock/alpine-bash-curl-ssl
+      image: makocchi/alpine-git-curl-jq
       options: --user root -v /__w/${{ github.workspace }}:/scripts/:rw
     env:
       working-directory: ./
