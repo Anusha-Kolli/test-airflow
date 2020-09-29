@@ -13,7 +13,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     container:
-      image: alphine
+      image: alpine:3.10
       options: --user root -v /__w/${{ github.workspace }}:/scripts/:rw
     env:
       working-directory: ./
