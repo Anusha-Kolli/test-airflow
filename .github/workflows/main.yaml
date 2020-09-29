@@ -21,14 +21,18 @@ jobs:
     steps:
     - name: Git Checks-out
       uses: actions/checkout@v1
-    - name: tag
+    - name: set env variables
+      run: |
+        echo "::set-env name=CURRENT_TAG::$(git tag --list --merged HEAD --sort=-committerdate | grep -E '^v?[0-9]+.[0-9]+.[0-9]+$' | head -n1 | sed 's/^v//')"
+        echo "::set-env name=NEW_TAG::$(cat CHANGELOG.md | awk  -v tag='"$current_tag"' '/Unreleased/ {p=1;next}; /'"$current_tag"'/ {p=0} p' | grep -E "^## " | awk -F '[\\[\\]]' '{print $2}')"
+    - name: create a release
       env:
+        NEW_TAG: ${{env.NEW_TAG}}
+        CURRENT_TAG: ${{env.CURRENT_TAG}}
         GITHUB_TOKEN: ${{secrets.ACCESS_TOKEN}}
         REPO_OWNER: Anusha-Kolli
       run: |
         chmod +x scripts/tag.sh
-        echo "::set-env name=CURRENT_TAG::$(git tag --list --merged HEAD --sort=-committerdate | grep -E '^v?[0-9]+.[0-9]+.[0-9]+$' | head -n1 | sed 's/^v//')"
-        echo "::set-env name=NEW_TAG::$(cat CHANGELOG.md | awk  -v tag='"$current_tag"' '/Unreleased/ {p=1;next}; /'"$current_tag"'/ {p=0} p' | grep -E "^## " | awk -F '[\\[\\]]' '{print $2}')"
-        ./scripts/tag.sh "$NEW_TAG" "$CURRENT_TAG"
+        ./scripts/tag.sh
 
         
