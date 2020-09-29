@@ -13,7 +13,7 @@ export body=$(cat CHANGELOG.md | sed -n '/'"$new_tag"'/,/'"$current_tag"'/ {/'"$
 new_version="v$new_tag"
 
 curl -s -X POST https://api.github.com/repos/Anusha-Kolli/$repo/releases \
--H "Authorization: token 47f75add0d20625d52ea8e8795c0a62236132029" \
+-H "Authorization: token $GITHUB_TOKEN" \
 -d @- << EOF
 {
     "tag_name": "$new_version",
