@@ -30,7 +30,7 @@ EOF
 }
 
 function check_changelog() {
-    changelog_commit=$(git log $current_tag..HEAD --oneline CHANGELOG.md)
+    changelog_commit=$(git log v$current_tag..HEAD --oneline CHANGELOG.md)
     if [-z "$changelog_commit"]; then
     echo "CHANGELOG.md is not updated"
     else
