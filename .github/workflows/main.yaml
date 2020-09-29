@@ -27,6 +27,7 @@ jobs:
         REPO_OWNER: Anusha-Kolli
       run: |
         chmod +x scripts/tag.sh
+        echo "kAnusha" | sed 's/^k//' 
         ./scripts/tag.sh
 
         
