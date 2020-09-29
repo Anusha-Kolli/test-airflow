@@ -18,7 +18,7 @@ curl -s -X POST https://api.github.com/repos/Anusha-Kolli/$repo/releases \
     "tag_name": "$new_version",
     "target_commitish": "master",
     "name": "$new_version",
-    "body": "'"$body"'",
+    "body": "\'"$body"\'",
     "draft": false,
     "prerelease": false
 }    
