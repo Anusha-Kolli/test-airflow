@@ -12,7 +12,7 @@ body="$(sed -n '/'"$new_tag"'/,/'"$current_tag"'/ {/'"$new_tag"'/!{/'"$current_t
 
 
 curl -s -X POST https://api.github.com/repos/Anusha-Kolli/$repo/releases \
--H "Authorization: token e8c18400ea319ba5c090e117a6a464a4f0a39ca4" \
+-H "Authorization: token $GITHUB_TOKEN" \
 -d @- << EOF
 {
     "tag_name": "$new_tag",
