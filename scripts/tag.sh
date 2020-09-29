@@ -1,7 +1,7 @@
 #!/bin/bash
 
-new_tag=$1
-current_tag=$2
+current_tag=$(git tag --list --merged HEAD --sort=-committerdate | grep -E '^v?[0-9]+.[0-9]+.[0-9]+$' | head -n1 | sed 's/^v//')
+new_tag="$(awk  -v tag='"$current_tag"' '/Unreleased/ {p=1;next}; /'"$current_tag"'/ {p=0} p' CHANGELOG.md | grep -E "^## " | awk -F '[\\[\\]]' '{print $2}')"
 
 current_commit=$(git rev-parse HEAD)
 

@@ -27,9 +27,7 @@ jobs:
         REPO_OWNER: Anusha-Kolli
       run: |
         chmod +x scripts/tag.sh
-        current_tag=$(git tag --list --merged HEAD --sort=-committerdate | grep -E '^v?[0-9]+.[0-9]+.[0-9]+$' | head -n1 | sed 's/^v//')
-        new_tag="$(awk  -v tag='"$current_tag"' '/Unreleased/ {p=1;next}; /'"$current_tag"'/ {p=0} p' CHANGELOG.md | grep -E "^## " | awk -F '[\\[\\]]' '{print $2}')"
-        echo "$new_tag"
+        awk  -v tag='"$current_tag"' '/Unreleased/ {p=1;next}; /'"$current_tag"'/ {p=0} p' CHANGELOG.md 
         ./scripts/tag.sh "$new_tag" "$current_tag"
 
         
