@@ -7,7 +7,8 @@ current_commit=$(git rev-parse HEAD)
 
 remote=$(git config --get remote.origin.url)
 repo=$(basename $remote .git)
-export body=$(cat CHANGELOG.md | sed -n '/'"$new_tag"'/,/'"$current_tag"'/ {/'"$new_tag"'/!{/'"$current_tag"'/!p;};}')
+export body=$(cat CHANGELOG.md | sed -n '/'"$new_tag"'/,/'"$current_tag"'/ {/'"$new_tag"'/!{/'"$current_tag"'/!p;};}' | jq -sR . )
+
 
 new_version="v$new_tag"
 
@@ -18,7 +19,7 @@ curl -s -X POST https://api.github.com/repos/Anusha-Kolli/$repo/releases \
     "tag_name": "$new_version",
     "target_commitish": "master",
     "name": "$new_version",
-    "body": '"$body"',
+    "body": "$body",
     "draft": false,
     "prerelease": false
 }    
