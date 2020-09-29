@@ -7,7 +7,7 @@ current_commit=$(git rev-parse HEAD)
 
 remote=$(git config --get remote.origin.url)
 repo=$(basename $remote .git)
-export body=$(cat CHANGELOG.md | sed -n '/'"$new_tag"'/,/'"$current_tag"'/ {/'"$new_tag"'/!{/'"$current_tag"'/!p;};}' | jq -sR . )
+export body=$(cat CHANGELOG.md | sed -n '/'"$new_tag"'/,/'"$current_tag"'/ {/'"$new_tag"'/!{/'"$current_tag"'/!p;};}' | awk '$1=$1' ORS='\\n' )
 
 
 new_version="v$new_tag"
