@@ -1,10 +1,9 @@
 #!/bin/bash
 
-current_tag=$(git tag --list --merged HEAD --sort=-committerdate | grep -E '^v?[0-9]+.[0-9]+.[0-9]+$' | head -n1 | sed 's/^v//')
+new_tag=$1
+current_tag=$2
 
 current_commit=$(git rev-parse HEAD)
-
-new_tag=$1
 
 remote=$(git config --get remote.origin.url)
 repo=$(basename $remote .git)
@@ -13,7 +12,7 @@ body=$(sed -n '/'"$new_tag"'/,/'"$current_tag"'/ {/'"$new_tag"'/!{/'"$current_ta
 new_version="v$new_tag"
 
 curl -s -X POST https://api.github.com/repos/Anusha-Kolli/$repo/releases \
--H "Authorization: token 124057a8ba6e29657eb04b3ae212c8c63246634b" \
+-H "Authorization: token $GITHUB_TOKEN" \
 -d @- << EOF
 {
     "tag_name": "$new_version",
