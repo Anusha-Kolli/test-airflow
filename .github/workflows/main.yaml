@@ -27,7 +27,8 @@ jobs:
         REPO_OWNER: Anusha-Kolli
       run: |
         chmod +x scripts/tag.sh
-        awk  -v tag='"$current_tag"' '/Unreleased/ {p=1;next}; /'"$current_tag"'/ {p=0} p' CHANGELOG.md 
+        test-$(awk  -v tag='"$current_tag"' '/Unreleased/ {p=1;next}; /'"$current_tag"'/ {p=0} p' CHANGELOG.md )
+        echo $test
         ./scripts/tag.sh "$new_tag" "$current_tag"
 
         
