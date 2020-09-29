@@ -15,18 +15,18 @@ function create_release() {
 
     echo "new_version"
 
-#     curl -s -X POST https://api.github.com/repos/Anusha-Kolli/$repo/releases \
-#     -H "Authorization: token $GITHUB_TOKEN" \
-#     -d @- << EOF
-#     {
-#        "tag_name": "$new_version",
-#        "target_commitish": "master",
-#        "name": "$new_version",
-#        "body": "$body",
-#        "draft": false,
-#        "prerelease": false
-#     }    
-# EOF
+    curl -s -X POST https://api.github.com/repos/Anusha-Kolli/$repo/releases \
+    -H "Authorization: token $GITHUB_TOKEN" \
+    -d @- << EOF
+    {
+       "tag_name": "$new_version",
+       "target_commitish": "master",
+       "name": "$new_version",
+       "body": "$body",
+       "draft": false,
+       "prerelease": false
+    }    
+EOF
 }
 
 function check_changelog() {
