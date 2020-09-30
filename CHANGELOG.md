@@ -4,6 +4,18 @@
 
 ## [Unreleased]
 
+## [2.2.0]- 2020-00-30
+### Added:
+- new: nothing to update
+- new: appending new
+- fix: trying new
+### Fixed:
+- fix: test
+- fix: trying new
+### Updated:
+- new: nothing to update
+- feat: test update
+
 ## [2.1.0]- 2020-00-30
 ### Added:
 - new: nothing to update
