@@ -4,7 +4,7 @@
 
 ## [Unreleased]
 
-## [2.0.0]- 2020-00-30
+## [2.1.0]- 2020-00-30
 ### Added:
 - new: nothing to update
 - new: appending new
