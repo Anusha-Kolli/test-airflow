@@ -17,7 +17,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - export_bluecore_returns_eu_daily -- [PEST-575]
 - DAP Plugins version to 2.2.0 --[PBI-2498]
 
-## [2.2.1] - 2020-09-30
+## [4.41.1] - 2020-09-30
 ### Updated
 - export_storeopstables_eu_daily -- [PBI-2534]
 
@@ -590,8 +590,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [4.3.0] - 2020-01-23
 ### Added
 - ingestion_common_product_batch_daily
-
-## [Unreleased]
 
 ## [4.2.2] - 2020-01-15
 ### Updated
