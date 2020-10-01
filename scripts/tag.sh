@@ -16,7 +16,7 @@ function create_release() {
     echo "new_version"
 
     curl -s -X POST https://api.github.com/repos/Anusha-Kolli/$repo/releases \
-    -H "Authorization: token $GITHUB_TOKEN" \
+    -H "Authorization: token $ACCESS_TOKEN" \
     -d @- << EOF
     {
        "tag_name": "$new_version",
