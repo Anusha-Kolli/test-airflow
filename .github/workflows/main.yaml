@@ -24,7 +24,6 @@ jobs:
     - name: create a release
       env:
         GITHUB_TOKEN: ${{secrets.ACCESS_TOKEN}}
-        REPO_OWNER: Anusha-Kolli
       run: |
         apk --update add bash curl git
         ./scripts/tag.sh
