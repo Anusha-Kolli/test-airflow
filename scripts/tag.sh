@@ -11,19 +11,20 @@ function create_pre_release() {
     new_version="develop-$new_tag-beta"
 
     # API request to create a Release
-    curl -s -X POST $GITHUB_API_URL/repos/$GITHUB_REPOSITORY/releases \
+    curl -s -X POST https://api.github.com/repos/$REPO_OWNER/$repo/releases \
     -H "Authorization: token $GITHUB_TOKEN" \
     -d @- << EOF
     {
        "tag_name": "$new_version",
-       "target_commitish": "develop",
+       "target_commitish": "master",
        "name": "$new_version",
-       "body": "This is a pre-release",
+       "body": "$body",
        "draft": false,
-       "prerelease": true
+       "prerelease": false
     }    
 EOF
 }
+
 
 function main() {
   create_pre_release()
