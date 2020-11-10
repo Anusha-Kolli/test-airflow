@@ -27,7 +27,7 @@ EOF
 
 
 function main() {
-  create_pre_release()
+  create_pre_release
 }
 
 main
