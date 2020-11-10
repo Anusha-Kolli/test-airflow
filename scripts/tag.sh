@@ -3,7 +3,7 @@
 set -e
 
 # Get the recent commit
-new_tag=$(git log --pretty=format:'%h' -n 1)
+export new_tag=$(git log --pretty=format:'%h' -n 1)
 
 function create_pre_release() {
     local new_version
@@ -30,4 +30,3 @@ function main() {
 }
 
 main
-
