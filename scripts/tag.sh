@@ -24,7 +24,7 @@ function create_release() {
        "name": "$new_version",
        "body": "$body",
        "draft": false,
-       "prerelease": false
+       "prerelease": true
     }    
 EOF
 }
