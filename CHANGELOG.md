@@ -4,6 +4,19 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [4.43.0] - 2020-11-09
+### Added
+- GitHub Action to create a release every time when push to master
+### Updated
+- ingestion_narvar_order_tracking_daily -- [DTE-2711]
+- export_nike_inventory_daily -- [DTE-2711]
+- export_nike_inventory_weekly -- [DTE-2711]
+- export_sps_activity_product_na_weekly -- [DTE-2709]
+- export_sps_activity_product_aus_weekly -- [DTE-2709]
+- export_sps_activity_product_eur_weekly -- [DTE-2709]
+- export_bluecore_returns_eu_daily -- [PEST-575]
+- DAP Plugins version to 2.2.0 --[PBI-2498]
+
 ## [4.42.0] - 2020-10-01
 ### Added
 - GitHub Action to create a release every time when push to master
