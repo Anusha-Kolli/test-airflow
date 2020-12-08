@@ -7,8 +7,8 @@ export current_tag=$(git tag --list --merged HEAD --sort=-committerdate | grep -
 # Get the recent commit
 export new_tag=$(cat CHANGELOG.md | awk  -v tag='"$current_tag"' '/Unreleased/ {p=1;next}; /'"$current_tag"'/ {p=0} p' | grep -E "^## " | sed 's/.*\[\([^]]*\)\].*/\1/g')
 
-export imageName="test/testImage"
-export registry="anusha972/test" 
+export imageName="test"
+export registry="anusha972" 
 
 function create_release() {
     local new_version
@@ -49,12 +49,12 @@ function check_changelog() {
     echo "CHANGELOG.md is not updated"
     else
     create_release
-    dockerImage_BuildandPush
     fi
 }
 
 function main() {
   create_release
+  dockerImage_BuildandPush
 }
 
 main
