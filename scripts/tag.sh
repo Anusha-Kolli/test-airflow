@@ -37,7 +37,7 @@ function dockerImage_BuildandPush() {
     imageName="test"
     registry="anusha972" 
 
-    docker build -t ${imageName}:${new_tag}
+    docker build -t ${imageName}:${new_tag} .
     docker login ${registry} -u ${USER} -p ${PASSWORD}
     docker tag ${imageName}:${new_tag} ${registry}/${imageName}:${new_tag}
     docker push ${registry}/${imageName}:${new_tag}
