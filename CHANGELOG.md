@@ -9,7 +9,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Docker file
 - Push and Build DockerImage
 
-
 ## [4.43.0] - 2020-11-09
 ### Added
 - GitHub Action to create a release every time when push to master
