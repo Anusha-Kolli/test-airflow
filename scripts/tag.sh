@@ -7,8 +7,7 @@ export current_tag=$(git tag --list --merged HEAD --sort=-committerdate | grep -
 # Get the recent commit
 export new_tag=$(cat CHANGELOG.md | awk  -v tag='"$current_tag"' '/Unreleased/ {p=1;next}; /'"$current_tag"'/ {p=0} p' | grep -E "^## " | sed 's/.*\[\([^]]*\)\].*/\1/g')
 
-export imageName="test"
-export registry="anusha972" 
+
 
 function create_release() {
     local new_version
@@ -33,6 +32,11 @@ EOF
 
 
 function dockerImage_BuildandPush() {
+    local imageName registry
+    
+    imageName="test"
+    registry="anusha972" 
+
     docker build -t ${imageName}:${new_tag}
     docker login ${registry} -u ${USER} -p ${PASSWORD}
     docker tag ${imageName}:${new_tag} ${registry}/${imageName}:${new_tag}

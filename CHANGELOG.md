@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [5.0.2] - 2020-12-08
+### Fixed
+- Push and Build DockerImage
+
 ## [5.0.1] - 2020-12-08
 ### Fixed
 - Push and Build DockerImage
