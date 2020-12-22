@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [5.0.6] - 2020-12-22
+### Fixed
+- update self-hosted-runners
+
 ## [5.0.5] - 2020-12-22
 ### Fixed
 - update self-hosted-runners
