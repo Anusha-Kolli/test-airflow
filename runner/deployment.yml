@@ -16,11 +16,11 @@ spec:
     spec:
       containers:
       - name: github-runner
-        image: test:1.11.0
+        image: test:1.9.0
         env:
-        - name: GITHUB_OWNER
+        - name: GH_ORG
           value: "Anusha-Kolli"
-        - name: GITHUB_REPOSITORY
+        - name: GH_REPO
           value: "test-airflow"
-        - name: GITHUB_PAT
-          value: "727a73d537b50f19497fb3c98979e1bac04c2851"
+        - name: GH_TOKEN
+          value: "5e5fe4100ffd48dbaf92e5437e6ab1764d0d4730"

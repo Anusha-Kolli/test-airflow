@@ -1,40 +1,19 @@
-#!/bin/sh
-registration_url="https://github.com/${GITHUB_OWNER}"
-if [ -z "${GITHUB_REPOSITORY}" ]; then
-    token_url="https://api.github.com/orgs/${GITHUB_OWNER}/actions/runners/registration-token"
+#!/usr/bin/env bash
+set -e
+readonly GH_API_ENDPOINT=https://api.github.com
+
+if [ -z "$GH_REPO" ]
+then
+  # org-level runners: https://github.com/actions/runner/issues/245
+  readonly TOKEN_URL=${GH_API_ENDPOINT}/orgs/${GH_ORG}/actions/runners/registration-token
+  readonly RUNNER_URL=https://github.com/${GH_ORG}
 else
-    token_url="https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPOSITORY}/actions/runners/registration-token"
-    registration_url="${registration_url}/${GITHUB_REPOSITORY}"
+  # per repo runner
+  readonly TOKEN_URL=${GH_API_ENDPOINT}/repos/${GH_ORG}/${GH_REPO}/actions/runners/registration-token
+  readonly RUNNER_URL="https://github.com/${GH_ORG}/${GH_REPO}"
 fi
 
-echo "Requesting token at '${token_url}'"
+RUNNER_TOKEN=$(curl -s -X POST -H "authorization: token ${GH_TOKEN}" "https://api.github.com/repos/${GH_ORG}/${GH_REPO}/actions/runners/registration-token" | jq -r .token)
+./config.sh --unattended --replace --url "${RUNNER_URL}" --token "${RUNNER_TOKEN}"
 
-payload=$(curl -sX POST -H "Authorization: token ${GITHUB_PAT}" ${token_url})
-export RUNNER_TOKEN=$(echo $payload | jq .token --raw-output)
-
-if [ -z "${RUNNER_NAME}" ]; then
-    RUNNER_NAME=$(hostname)
-fi
-
-./config.sh \
-    --name "${RUNNER_NAME}" \
-    --token "${RUNNER_TOKEN}" \
-    --url "${registration_url}" \
-    --work "${RUNNER_WORKDIR}" \
-    --labels "${RUNNER_LABELS}" \
-    --unattended \
-    --replace
-
-remove() {
-    payload=$(curl -sX POST -H "Authorization: token ${GITHUB_PAT}" ${token_url%/registration-token}/remove-token)
-    export REMOVE_TOKEN=$(echo $payload | jq .token --raw-output)
-
-    ./config.sh remove --unattended --token "${REMOVE_TOKEN}"
-}
-
-trap 'remove; exit 130' INT
-trap 'remove; exit 143' TERM
-
-./runsvc.sh "$*" &
-
-wait $!
+exec "./run.sh" "${RUNNER_ARGS}"
