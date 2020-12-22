@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: github-runner
+  labels:
+    app: github-runner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: github-runner
+  template:
+    metadata:
+      labels:
+        app: github-runner
+    spec:
+      containers:
+      - name: github-runner
+        image: test:1.3.0
+        env:
+        - name: GITHUB_OWNER
+          value: "Anusha-Kolli"
+        - name: GITHUB_REPOSITORY
+          value: "test-airflow"
+        - name: GITHUB_PAT # stored separately in a Kubernetes secret
+          value: "727a73d537b50f19497fb3c98979e1bac04c2851"
