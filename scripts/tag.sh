@@ -58,7 +58,6 @@ function check_changelog() {
 
 function main() {
   create_release
-  dockerImage_BuildandPush
 }
 
 main
