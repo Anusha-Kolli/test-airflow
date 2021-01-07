@@ -25,8 +25,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{secrets.ACCESS_TOKEN}}
         REPO_OWNER: Anusha-Kolli
-        USER: ${{secrets.USER}}
-        PASSWORD: ${{secrets.PASSWORD}}
       run: |
         apk --update add bash curl git docker
         ./scripts/tag.sh
