@@ -31,21 +31,6 @@ EOF
 }
 
 
-function dockerImage_BuildandPush() {
-    local imageName registry
-    
-    imageName="test"
-    registry="anusha972" 
-
-    docker build -t ${imageName}:${new_tag} .
-    docker login -u ${USER} -p ${PASSWORD}
-    docker tag ${imageName}:${new_tag} ${registry}/${imageName}:${new_tag}
-    docker push ${registry}/${imageName}:${new_tag}
-    # docker login ${dev_registry} -u ${user} -p ${password}
-    # docker tag ${imageName}:${new_tag} ${dev_registry}/${imageName}:${new_tag}
-    # docker push ${dev_registry}/${imageName}:${new_tag}
-
-}
 
 function check_changelog() {
     changelog_commit=$(git log v$current_tag..HEAD --oneline CHANGELOG.md)
