@@ -47,7 +47,7 @@ function dockerImage_BuildandPush() {
     
     docker build -t ${imageName}:${new_tag} .
 
-    if [[ "$BRANCH" == "master" ]]; then
+    if [[ "${GITHUB_REF##*/}" == "master" ]]; then
     #pushing to PROD acr
     docker login -u ${USER} -p ${PASSWORD}
     docker tag ${imageName}:${new_tag} ${prod_registry}/${imageName}:${new_tag}
