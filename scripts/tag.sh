@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ./common_functions.sh
+
 set -e 
 
 export current_tag=$(git tag --list --merged HEAD --sort=-committerdate | grep -E '^v?[0-9]+.[0-9]+.[0-9]+$' | head -n1 | sed 's/^v//')
@@ -31,21 +33,21 @@ EOF
 }
 
 
-function dockerImage_BuildandPush() {
-    local imageName registry
+# function dockerImage_BuildandPush_test() {
+#     local imageName registry
     
-    imageName="test"
-    registry="anusha972" 
+#     imageName="test"
+#     registry="anusha972" 
 
-    docker build -t ${imageName}:${new_tag} .
-    docker login -u ${USER} -p ${PASSWORD}
-    docker tag ${imageName}:${new_tag} ${registry}/${imageName}:${new_tag}
-    docker push ${registry}/${imageName}:${new_tag}
-    # docker login ${dev_registry} -u ${user} -p ${password}
-    # docker tag ${imageName}:${new_tag} ${dev_registry}/${imageName}:${new_tag}
-    # docker push ${dev_registry}/${imageName}:${new_tag}
+#     docker build -t ${imageName}:${new_tag} .
+#     docker login -u ${USER} -p ${PASSWORD}
+#     docker tag ${imageName}:${new_tag} ${registry}/${imageName}:${new_tag}
+#     docker push ${registry}/${imageName}:${new_tag}
+#     docker login ${dev_registry} -u ${user} -p ${password}
+#     docker tag ${imageName}:${new_tag} ${dev_registry}/${imageName}:${new_tag}
+#     docker push ${dev_registry}/${imageName}:${new_tag}
 
-}
+# }
 
 function check_changelog() {
     changelog_commit=$(git log v$current_tag..HEAD --oneline CHANGELOG.md)
