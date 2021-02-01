@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./common_functions.sh
+source ./scripts/common_functions.sh
 
 set -e 
 
