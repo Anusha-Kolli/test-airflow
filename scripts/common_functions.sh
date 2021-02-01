@@ -1,6 +1,12 @@
 function common_functions() {
     local imageName prod_registry
 
+    if [ "$is_prerelease" = "true" ]; then
+    prerelease="true"; 
+    else
+    prerelease="false"; 
+    fi
+
 
     # API request to create a Release
     curl -s -X POST $GITHUB_API_URL/repos/$GITHUB_REPOSITORY/releases \
@@ -12,7 +18,7 @@ function common_functions() {
        "name": "$new_version",
        "body": "$body",
        "draft": false,
-       "prerelease": "$is_prerelease"
+       "prerelease": $is_prerelease
     }    
 EOF
     
