@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ./common_functions.sh
+
 set -e 
 
 export current_tag=$(git tag --list --merged HEAD --sort=-committerdate | grep -E '^v?[0-9]+.[0-9]+.[0-9]+$' | head -n1 | sed 's/^v//')
@@ -31,7 +33,6 @@ EOF
 }
 
 
-
 function check_changelog() {
     changelog_commit=$(git log v$current_tag..HEAD --oneline CHANGELOG.md)
     if [[ -z "$changelog_commit" ]]; then
@@ -43,6 +44,7 @@ function check_changelog() {
 
 function main() {
   create_release
+  dockerImage_BuildandPush
 }
 
 main
