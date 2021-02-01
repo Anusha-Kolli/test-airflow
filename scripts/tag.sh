@@ -7,11 +7,6 @@ export current_tag=$(git tag --list --merged HEAD --sort=-committerdate | grep -
 # Get the recent commit
 export new_tag=$(cat CHANGELOG.md | awk  -v tag='"$current_tag"' '/Unreleased/ {p=1;next}; /'"$current_tag"'/ {p=0} p' | grep -E "^## " | sed 's/.*\[\([^]]*\)\].*/\1/g')
 
-export branch=$(git rev-parse --abbrev-ref HEAD)
-
-
-
-
 function create_release() {
     local new_version
 
@@ -52,21 +47,18 @@ function dockerImage_BuildandPush() {
     
     docker build -t ${imageName}:${new_tag} .
 
-    if [[ "$branch" == "master" ]]; then
+    if [[ "$GITHUB_REF" == "master" ]]; then
     #pushing to PROD acr
     docker login -u ${USER} -p ${PASSWORD}
     docker tag ${imageName}:${new_tag} ${prod_registry}/${imageName}:${new_tag}
     docker push ${prod_registry}/${imageName}:${new_tag}
     else
-    docker login -u ${USER} -p ${PASSWORD}
-    docker tag ${imageName}:${new_tag} ${prod_registry}/${imageName}:${new_tag}
-    docker push ${prod_registry}/${imageName}:${new_tag}
+    echo "######################## This is a develop branch #########################"
     fi
     
 }
 
 function main() {
-  echo "$branch"
   create_release
   dockerImage_BuildandPush
 }
