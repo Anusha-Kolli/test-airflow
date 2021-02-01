@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source ./scripts/common_functions.sh
-
 set -e 
 
 export current_tag=$(git tag --list --merged HEAD --sort=-committerdate | grep -E '^v?[0-9]+.[0-9]+.[0-9]+$' | head -n1 | sed 's/^v//')
@@ -31,7 +29,6 @@ function create_release() {
     }    
 EOF
 
-  dockerImage_BuildandPush
 }
 
 
@@ -44,8 +41,40 @@ function check_changelog() {
     fi
 }
 
+function dockerImage_BuildandPush() {
+    local imageName prod_registry
+    
+    imageName="test"
+    prod_registry="anusha972" 
+    
+
+    docker build -t ${imageName}:${new_tag} .
+
+    branch=$(git rev-parse --abbrev-ref HEAD)
+
+    echo "$branch"
+
+    if [[ "$branch" == "master" ]]; then
+    {
+        #pushing to PROD acr
+       docker login -u ${USER} -p ${PASSWORD}
+       docker tag ${imageName}:${new_tag} ${prod_registry}/${imageName}:${new_tag}
+       docker push ${prod_registry}/${imageName}:${new_tag}
+
+    }
+    fi
+
+    if [[ "$branch" == "develop" ]]; then
+    {
+       echo "This is a develop branch"
+    }
+    fi
+    
+}
+
 function main() {
   create_release
+  dockerImage_BuildandPush
 }
 
 main
