@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [5.5.0] - 2021-02-01
+### Fixed
+- one more test
+
 ## [5.4.3] - 2021-02-01
 ### Fixed
 - Trying to get branch name
