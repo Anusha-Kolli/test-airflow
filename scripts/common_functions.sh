@@ -4,27 +4,19 @@ function dockerImage_BuildandPush() {
     imageName="test"
     prod_registry="anusha972" 
     
-
     docker build -t ${imageName}:${new_tag} .
 
-    branch=$(git rev-parse --abbrev-ref HEAD)
+    if [[ "${GITHUB_REF##*/}" == "master" ]]; then
 
-    echo "$branch"
+    #pushing to PROD acr
+    docker login -u ${USER} -p ${PASSWORD}
+    docker tag ${imageName}:${new_tag} ${prod_registry}/${imageName}:${new_tag}
+    docker push ${prod_registry}/${imageName}:${new_tag}
 
-    if [[ "$branch" == "master" ]]; then
-    {
-        #pushing to PROD acr
-       docker login -u ${USER} -p ${PASSWORD}
-       docker tag ${imageName}:${new_tag} ${prod_registry}/${imageName}:${new_tag}
-       docker push ${prod_registry}/${imageName}:${new_tag}
+    else
 
-    }
-    fi
-
-    if [[ "$branch" == "develop" ]]; then
-    {
-       echo "This is a develop branch"
-    }
+    echo "######################## This is a develop branch #########################"
+    
     fi
     
 }

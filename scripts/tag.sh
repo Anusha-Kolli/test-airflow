@@ -2,6 +2,8 @@
 
 set -e 
 
+source ./scripts/common_functions.sh
+
 export current_tag=$(git tag --list --merged HEAD --sort=-committerdate | grep -E '^v?[0-9]+.[0-9]+.[0-9]+$' | head -n1 | sed 's/^v//')
 
 # Get the recent commit
@@ -39,24 +41,24 @@ function check_changelog() {
     fi
 }
 
-function dockerImage_BuildandPush() {
-    local imageName prod_registry
+# function dockerImage_BuildandPush() {
+#     local imageName prod_registry
     
-    imageName="test"
-    prod_registry="anusha972" 
+#     imageName="test"
+#     prod_registry="anusha972" 
     
-    docker build -t ${imageName}:${new_tag} .
+#     docker build -t ${imageName}:${new_tag} .
 
-    if [[ "${GITHUB_REF##*/}" == "master" ]]; then
-    #pushing to PROD acr
-    docker login -u ${USER} -p ${PASSWORD}
-    docker tag ${imageName}:${new_tag} ${prod_registry}/${imageName}:${new_tag}
-    docker push ${prod_registry}/${imageName}:${new_tag}
-    else
-    echo "######################## This is a develop branch #########################"
-    fi
+#     if [[ "${GITHUB_REF##*/}" == "master" ]]; then
+#     #pushing to PROD acr
+#     docker login -u ${USER} -p ${PASSWORD}
+#     docker tag ${imageName}:${new_tag} ${prod_registry}/${imageName}:${new_tag}
+#     docker push ${prod_registry}/${imageName}:${new_tag}
+#     else
+#     echo "######################## This is a develop branch #########################"
+#     fi
     
-}
+# }
 
 function main() {
   create_release
