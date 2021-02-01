@@ -9,7 +9,7 @@ function dockerImage_BuildandPush() {
 
     branch=$(git rev-parse --abbrev-ref HEAD)
 
-    if [[ "$branch" == master ]]; then
+    if [[ "$branch" == "master" ]]; then
 
        #pushing to PROD acr
        docker login -u ${USER} -p ${PASSWORD}
