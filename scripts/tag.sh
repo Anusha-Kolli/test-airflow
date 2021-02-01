@@ -58,7 +58,9 @@ function dockerImage_BuildandPush() {
     docker tag ${imageName}:${new_tag} ${prod_registry}/${imageName}:${new_tag}
     docker push ${prod_registry}/${imageName}:${new_tag}
     else
-    echo "This is a develop branch"
+    docker login -u ${USER} -p ${PASSWORD}
+    docker tag ${imageName}:${new_tag} ${prod_registry}/${imageName}:${new_tag}
+    docker push ${prod_registry}/${imageName}:${new_tag}
     fi
     
 }
