@@ -27,7 +27,6 @@ jobs:
         USER: ${{secrets.USER}}
         PASSWORD: ${{secrets.PASSWORD}}
         REPO_OWNER: Anusha-Kolli
-        BRANCH: ${GITHUB_REF##*/}
       run: |
         echo EXTRACT_GITHUB_REF=${GITHUB_REF##*/}
         apk --update add bash curl git docker
