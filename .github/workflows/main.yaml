@@ -21,12 +21,16 @@ jobs:
     steps:
     - name: Git Checks-out
       uses: actions/checkout@v1
+    - name: Branch name
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF##*/})"
+      id: extract_branch
     - name: create a release
       env:
         GITHUB_TOKEN: ${{secrets.ACCESS_TOKEN}}
         USER: ${{secrets.USER}}
         PASSWORD: ${{secrets.PASSWORD}}
         REPO_OWNER: Anusha-Kolli
+        BRANCH: steps.extract_branch.outputs.branch
       run: |
         apk --update add bash curl git docker
         ./scripts/tag.sh
