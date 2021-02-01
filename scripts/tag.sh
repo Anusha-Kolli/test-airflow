@@ -9,11 +9,13 @@ export new_tag=$(cat CHANGELOG.md | awk  -v tag='"$current_tag"' '/Unreleased/ {
 
 export branch=$(git rev-parse --abbrev-ref HEAD)
 
-echo "$branch"
+
 
 
 function create_release() {
     local new_version
+
+    echo "$branch"
 
     export body=$(cat CHANGELOG.md | sed -n '/'"$new_tag"'/,/'"$current_tag"'/ {/'"$new_tag"'/!{/'"$current_tag"'/!p;};}' | awk '$1=$1' ORS='\\n' )
     new_version="v$new_tag"
@@ -57,7 +59,6 @@ function dockerImage_BuildandPush() {
     docker login -u ${USER} -p ${PASSWORD}
     docker tag ${imageName}:${new_tag} ${prod_registry}/${imageName}:${new_tag}
     docker push ${prod_registry}/${imageName}:${new_tag}
-
     else
     echo "This is a develop branch"
     fi
