@@ -15,7 +15,7 @@ function create_release() {
 
     body=$(cat CHANGELOG.md | sed -n '/'"$new_tag"'/,/'"$current_tag"'/ {/'"$new_tag"'/!{/'"$current_tag"'/!p;};}' | awk '$1=$1' ORS='\\n' )
     new_version="v$new_tag"
-    is_prerelease=`echo true`
+    is_prerelease=true
 
 
     common_functions
