@@ -4,6 +4,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [5.1.2] - 2021-02-01
+### Fixed
+- fixing tag.sh
+
+## [5.1.1] - 2021-02-01
+### Fixed
+- fixing tag.sh
+
 ## [5.1.0] - 2021-02-01
 ### Fixed
 - update docker build image
