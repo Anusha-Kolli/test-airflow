@@ -23,4 +23,4 @@ spec:
         - name: GH_REPO
           value: "test-airflow"
         - name: GH_TOKEN
-          value: "5e5fe4100ffd48dbaf92e5437e6ab1764d0d4730"
+          value: ""
