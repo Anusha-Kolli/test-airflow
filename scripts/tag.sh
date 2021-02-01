@@ -15,8 +15,6 @@ export branch=$(git rev-parse --abbrev-ref HEAD)
 function create_release() {
     local new_version
 
-    echo "$branch"
-
     export body=$(cat CHANGELOG.md | sed -n '/'"$new_tag"'/,/'"$current_tag"'/ {/'"$new_tag"'/!{/'"$current_tag"'/!p;};}' | awk '$1=$1' ORS='\\n' )
     new_version="v$new_tag"
 
@@ -66,6 +64,7 @@ function dockerImage_BuildandPush() {
 }
 
 function main() {
+  echo "$branch"
   create_release
   dockerImage_BuildandPush
 }
