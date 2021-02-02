@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [5.7.2] - 2021-02-01
+### Fixing
+- Trying to update
+
 ## [5.7.1] - 2021-02-01
 ### Fixing
 - Trying to update
