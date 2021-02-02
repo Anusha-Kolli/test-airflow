@@ -1,7 +1,7 @@
 function docker_LoginandPush() {
 
    #docker login tagging and pushing the image
-   docker login ${registry} -u ${USER} -p ${PASSWORD}
+   docker login ${registry} -u ${DEV_USER} -p ${DEV_PASSWORD}
    docker tag ${imageName}:${new_tag} ${registry}/${imageName}:${new_tag}
    docker push ${registry}/${imageName}:${new_tag}
 
@@ -11,8 +11,8 @@ function docker_devPush() {
    local registry USER PASSWORD
 
    registry="anusha972"
-   USER="${USER}"
-   PASSWORD="${PASSWORD}"
+   DEV_USER="${USER}"
+   DEV_PASSWORD="${PASSWORD}"
 
    docker_LoginandPush
 }
@@ -21,8 +21,8 @@ function docker_prodPush() {
    local registry USER PASSWORD
 
    registry="anusha972"
-   USER="${USER}"
-   PASSWORD="${PASSWORD}"
+   DEV_PASSWORD="${USER}"
+   DEV_PASSWORD="${PASSWORD}"
 
    docker_LoginandPush
 }
