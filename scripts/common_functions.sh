@@ -1,35 +1,26 @@
-function docker_LoginandPush() {
-
-   #docker login tagging and pushing the image
-   docker login ${registry} -u ${DEV_USER} -p ${DEV_PASSWORD}
-   docker tag ${imageName}:${new_tag} ${registry}/${imageName}:${new_tag}
-   docker push ${registry}/${imageName}:${new_tag}
-
-}
-
 function docker_devPush() {
-   local registry USER PASSWORD
+   local dev_registry
 
-   registry="anusha972"
-   DEV_USER="${USER}"
-   DEV_PASSWORD="${PASSWORD}"
+   dev_registry="anusha972"
 
-   docker_LoginandPush
+   docker login -u ${USER} -p ${PASSWORD}
+   docker tag ${imageName}:${new_tag} ${dev_registry}/${imageName}:${new_tag}
+   docker push ${dev_registry}/${imageName}:${new_tag}
 }
 
 function docker_prodPush() {
-   local registry USER PASSWORD
+   local prod_registry
 
-   registry="anusha972"
-   DEV_PASSWORD="${USER}"
-   DEV_PASSWORD="${PASSWORD}"
+   prod_registry="anusha972"
 
-   docker_LoginandPush
+   docker login -u ${USER} -p ${PASSWORD}
+   docker tag ${imageName}:${new_tag} ${prod_registry}/${imageName}:${new_tag}
+   docker push ${prod_registry}/${imageName}:${new_tag}
 }
 
 
 function common_functions() {
-    local imageName 
+    local imageName prod_registry
 
     if [ "$is_prerelease" = "true" ]; then
     prerelease="true"; 
