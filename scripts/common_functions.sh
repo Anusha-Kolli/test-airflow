@@ -1,11 +1,11 @@
 function docker_devPush() {
    local dev_registry
 
-   dev_registry="anusha972"
+   dev_registry=$1
 
-   docker login -u ${USER} -p ${PASSWORD}
-   docker tag ${imageName}:${new_tag} ${dev_registry}/${imageName}:${new_tag}
-   docker push ${dev_registry}/${imageName}:${new_tag}
+   docker login -u $2 -p $3
+   docker tag ${imageName}:${new_tag} ${1}/${imageName}:${new_tag}
+   docker push ${1}/${imageName}:${new_tag}
 }
 
 function docker_prodPush() {
@@ -47,10 +47,10 @@ EOF
     
     docker build -t ${imageName}:${new_tag} .
 
-    if [[ "${GITHUB_REF##*/}" == "master" ]]; then      
-    docker_prodPush
+    if [[ "${GITHUB_REF##*/}" == "master" ]]; then 
+    docker_devPush  anusha972  ${USER}  ${PASSWORD}
     else
-    docker_devPush
+    docker_prodPush
     echo "######################## This is a develop branch #########################" 
     fi
     
