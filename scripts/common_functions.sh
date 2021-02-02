@@ -1,5 +1,35 @@
+function docker_LoginandPush() {
+
+   #docker login tagging and pushing the image
+   docker login ${registry} -u ${USER} -p ${PASSWORD}
+   docker tag ${imageName}:${new_tag} ${registry}/${imageName}:${new_tag}
+   docker push ${registry}/${imageName}:${new_tag}
+
+}
+
+fucntion docker_devPush() {
+   local registry USER PASSWORD
+
+   registry="anusha972"
+   USER="${USER}"
+   PASSWORD="${PASSWORD}"
+
+   docker_LoginandPush
+}
+
+fucntion docker_prodPush() {
+   local registry USER PASSWORD
+
+   registry="anusha972"
+   USER="${USER}"
+   PASSWORD="${PASSWORD}"
+
+   docker_LoginandPush
+}
+
+
 function common_functions() {
-    local imageName prod_registry
+    local imageName 
 
     if [ "$is_prerelease" = "true" ]; then
     prerelease="true"; 
@@ -23,21 +53,14 @@ function common_functions() {
 EOF
     
     imageName="test"
-    prod_registry="anusha972" 
     
     docker build -t ${imageName}:${new_tag} .
 
-    if [[ "${GITHUB_REF##*/}" == "master" ]]; then
-
-    #pushing to PROD acr
-    docker login -u ${USER} -p ${PASSWORD}
-    docker tag ${imageName}:${new_tag} ${prod_registry}/${imageName}:${new_tag}
-    docker push ${prod_registry}/${imageName}:${new_tag}
-
+    if [[ "${GITHUB_REF##*/}" == "master" ]]; then      
+    docker_prodPush
     else
-
-    echo "######################## This is a develop branch #########################"
-    
+    docker_devPush
+    echo "######################## This is a develop branch #########################" 
     fi
     
 }
