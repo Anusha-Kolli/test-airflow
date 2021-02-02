@@ -30,7 +30,7 @@ jobs:
         REPO_OWNER: Anusha-Kolli
       run: |
         echo EXTRACT_GITHUB_REF=${GITHUB_REF##*/}
-        apk --update add bash curl git docker
+        apk --update add bash curl git docker openssl
         ./scripts/tag.sh
 
         
