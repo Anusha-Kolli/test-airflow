@@ -7,7 +7,7 @@ function docker_LoginandPush() {
 
 }
 
-fucntion docker_devPush() {
+function docker_devPush() {
    local registry USER PASSWORD
 
    registry="anusha972"
@@ -17,7 +17,7 @@ fucntion docker_devPush() {
    docker_LoginandPush
 }
 
-fucntion docker_prodPush() {
+function docker_prodPush() {
    local registry USER PASSWORD
 
    registry="anusha972"
