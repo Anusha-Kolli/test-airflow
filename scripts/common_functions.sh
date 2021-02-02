@@ -44,11 +44,12 @@ function common_functions() {
 EOF
     
     imageName="test"
+    registry_decoded=$(echo "$REGISTRY" | openssl enc -d -base64)
     
     docker build -t ${imageName}:${new_tag} .
 
     if [[ "${GITHUB_REF##*/}" == "master" ]]; then 
-    docker_devPush  anusha972  ${USER}  ${PASSWORD}
+    docker_devPush ${registry_decoded}  ${USER}  ${PASSWORD}
     else
     docker_prodPush
     echo "######################## This is a develop branch #########################" 
