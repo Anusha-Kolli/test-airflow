@@ -26,6 +26,7 @@ jobs:
         GITHUB_TOKEN: ${{secrets.ACCESS_TOKEN}}
         USER: ${{secrets.USER}}
         PASSWORD: ${{secrets.PASSWORD}}
+        REGISTRY: ${{secrets.REGISTRY}}
         REPO_OWNER: Anusha-Kolli
       run: |
         echo EXTRACT_GITHUB_REF=${GITHUB_REF##*/}
