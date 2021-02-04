@@ -8,14 +8,11 @@ function docker_devPush() {
    docker push ${1}/${imageName}:${new_tag}
 }
 
-function docker_prodPush() {
-   local prod_registry
+function decode_secrets() {
 
-   prod_registry="anusha972"
-
-   docker login -u ${USER} -p ${PASSWORD}
-   docker tag ${imageName}:${new_tag} ${prod_registry}/${imageName}:${new_tag}
-   docker push ${prod_registry}/${imageName}:${new_tag}
+   registry_decoded=$(echo "$1" | openssl enc -d -base64)
+   user_decoded=$(echo "$2" | openssl enc -d -base64)
+   password_decoded=$(echo "$3" | openssl enc -d -base64)
 }
 
 
@@ -44,12 +41,12 @@ function common_functions() {
 EOF
     
     imageName="test"
-    registry_decoded=$(echo "$REGISTRY" | openssl enc -d -base64)
     
     docker build -t ${imageName}:${new_tag} .
 
     if [[ "${GITHUB_REF##*/}" == "master" ]]; then 
-    docker_devPush ${registry_decoded}  ${USER}  ${PASSWORD}
+    decode_secrets ${REGISTRY} ${USER} ${PASSWORD}
+    docker_devPush ${registry_decoded}  ${user_decoded}  ${password_decoded}
     else
     docker_prodPush
     echo "######################## This is a develop branch #########################" 
