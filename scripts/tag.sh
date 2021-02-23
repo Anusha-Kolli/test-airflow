@@ -32,24 +32,6 @@ function check_changelog() {
     fi
 }
 
-function create_dispatch() {
-
-  curl -s -X POST $GITHUB_API_URL/repos/$GITHUB_REPOSITORY/actions/workflows/$GITHUB_RUNNNER_ID/dispatches \
-    -H "Accept: application/vnd.github.v3+json" \
-    -H "Authorization: token $GITHUB_TOKEN" \
-    -d @- << EOF
-    {
-       "ref":"develop"
-    }    
-EOF
-    
-}
-
-
-curl \
-  -X PUT \
-  -H "Accept: application/vnd.github.v3+json" \
-  https://api.github.com/repos/octocat/hello-world/actions/workflows/42/disable
 
 # function dockerImage_BuildandPush() {
 #     local imageName prod_registry
@@ -72,7 +54,6 @@ curl \
 
 function main() {
   create_release
-  create_dispatch
 
 }
 
