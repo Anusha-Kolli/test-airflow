@@ -32,6 +32,19 @@ function check_changelog() {
     fi
 }
 
+function create_dispatch() {
+
+  curl -s -X POST $GITHUB_API_URL/repos/$GITHUB_REPOSITORY/actions/workflows/$GITHUB_RUNNNER_ID/dispatches \
+    -H "Accept: application/vnd.github.v3+json" \
+    -H "Authorization: token $GITHUB_TOKEN" \
+    -d @- << EOF
+    {
+       "ref":"${ref}"
+    }    
+EOF
+    
+}
+
 # function dockerImage_BuildandPush() {
 #     local imageName prod_registry
     
@@ -53,6 +66,7 @@ function check_changelog() {
 
 function main() {
   create_release
+  create_dispatch
 
 }
 
