@@ -39,11 +39,17 @@ function create_dispatch() {
     -H "Authorization: token $GITHUB_TOKEN" \
     -d @- << EOF
     {
-       "ref":"${ref}"
+       "ref":"develop"
     }    
 EOF
     
 }
+
+
+curl \
+  -X PUT \
+  -H "Accept: application/vnd.github.v3+json" \
+  https://api.github.com/repos/octocat/hello-world/actions/workflows/42/disable
 
 # function dockerImage_BuildandPush() {
 #     local imageName prod_registry
