@@ -5,8 +5,6 @@ on:
   push:
     branches:
       - master
-  repository_dispatch:
-
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -33,5 +31,11 @@ jobs:
         echo EXTRACT_GITHUB_REF=${GITHUB_REF##*/}
         apk --update add bash curl git docker openssl
         ./scripts/tag.sh
+    - name: repository dispatch
+      run: |
+        apk --update add bash curl git jq
+        ./scripts/dispatch.sh
+
+
 
         
