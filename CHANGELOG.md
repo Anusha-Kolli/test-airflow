@@ -4,7 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [5.7.1] - 2021-02-03
+## [5.7.8] - 2021-02-03
 ### Fixed
 - test
 
