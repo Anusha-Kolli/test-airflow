@@ -41,7 +41,6 @@ jobs:
         -H "Authorization: token $GITHUB_TOKEN" \
         -d @- << EOF
          {
-           "ref":"develop",
            "event_type": "build_application",
            "client_payload": { "repository": "$GITHUB_REPOSITORY" }
         }    
