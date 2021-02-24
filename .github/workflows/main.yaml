@@ -42,8 +42,8 @@ jobs:
         -d @- << EOF
          {
            "ref":"develop",
-            "event_type": "build_application",
-            "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }
+           "event_type": "build_application",
+           "client_payload": { "repository": "$GITHUB_REPOSITORY" }
         }    
         EOF
 
