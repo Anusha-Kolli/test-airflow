@@ -32,14 +32,19 @@ jobs:
         apk --update add bash curl git docker openssl
         ./scripts/tag.sh
     - name: repository dispatch
+      env:
+        GITHUB_TOKEN: ${{secrets.ACCESS_TOKEN}}
       run: |
         apk --update add bash curl git jq
-        curl -s -X POST $GITHUB_API_URL/repos/Anusha-Kolli/test-dispatch/actions/workflows/$GITHUB_RUNNNER_ID/dispatches -H "Accept: application/vnd.github.v3+json" -H "Authorization: token $GITHUB_TOKEN" \
+        curl -s -X POST $GITHUB_API_URL/repos/Anusha-Kolli/test-dispatch/actions/workflows/$GITHUB_RUNNNER_ID/dispatches \
+        -H "Accept: application/vnd.github.v3+json" \
+        -H "Authorization: token $GITHUB_TOKEN" \
         -d @- << EOF
          {
            "ref":"develop",
-            "event_type": "build_application"
-          }    
+            "event_type": "build_application",
+            "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }
+        }    
         EOF
 
 
