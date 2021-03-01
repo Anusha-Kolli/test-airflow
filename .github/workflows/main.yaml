@@ -30,7 +30,7 @@ jobs:
       run: |
         echo EXTRACT_GITHUB_REF=${GITHUB_REF##*/}
         apt update && apt install -y curl git bash
-        ./scripts/tag.sh
+        sh /scripts/tag.sh
     - name: repository dispatch
       env:
         GITHUB_TOKEN: ${{secrets.ACCESS_TOKEN}}
