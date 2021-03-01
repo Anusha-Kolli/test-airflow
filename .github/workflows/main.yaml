@@ -29,13 +29,13 @@ jobs:
         REPO_OWNER: Anusha-Kolli
       run: |
         echo EXTRACT_GITHUB_REF=${GITHUB_REF##*/}
-        apt update && apt install curl git docker openssl
+        apt update && apt install -y curl git docker openssl
         ./scripts/tag.sh
     - name: repository dispatch
       env:
         GITHUB_TOKEN: ${{secrets.ACCESS_TOKEN}}
       run: |
-        apt update && apt install  bash curl git jq
+        apt update && apt install -y bash curl git jq
         curl -s -X POST $GITHUB_API_URL/repos/Anusha-Kolli/test-dispatch/dispatches \
         -H "Accept: application/vnd.github.v3+json" \
         -H "Authorization: token $GITHUB_TOKEN" \
