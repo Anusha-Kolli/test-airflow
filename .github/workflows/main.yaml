@@ -12,7 +12,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     container:
-      image: alpine:3.10
+      image: debian:stretch-slim
       options: --user root -v /__w/${{ github.workspace }}:/scripts/:rw
     env:
       working-directory: ./
@@ -29,13 +29,13 @@ jobs:
         REPO_OWNER: Anusha-Kolli
       run: |
         echo EXTRACT_GITHUB_REF=${GITHUB_REF##*/}
-        apk --update add bash curl git docker openssl
+        apt --update add curl git docker openssl
         ./scripts/tag.sh
     - name: repository dispatch
       env:
         GITHUB_TOKEN: ${{secrets.ACCESS_TOKEN}}
       run: |
-        apk --update add bash curl git jq
+        apt --update add bash curl git jq
         curl -s -X POST $GITHUB_API_URL/repos/Anusha-Kolli/test-dispatch/dispatches \
         -H "Accept: application/vnd.github.v3+json" \
         -H "Authorization: token $GITHUB_TOKEN" \
