@@ -29,7 +29,11 @@ jobs:
         REPO_OWNER: Anusha-Kolli
       run: |
         echo EXTRACT_GITHUB_REF=${GITHUB_REF##*/}
-        apt update && apt install -y curl git docker-ce openssl
+        apt update && apt install -y curl git openssl
+        apt update && apt install apt-transport-https ca-certificates curl gnupg2 software-properties-common
+        curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+        apt install docker-ce
         ./scripts/tag.sh
     - name: repository dispatch
       env:
