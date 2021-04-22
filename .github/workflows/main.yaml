@@ -19,10 +19,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     - name: Git Checks-out
-      run: |
-        apt update && apt install -y git
-        git fetch --tags -f
       uses: actions/checkout@v1
+      with:
+          fetch-depth: 0
     - name: create a release
       env:
         GITHUB_TOKEN: ${{secrets.ACCESS_TOKEN}}
