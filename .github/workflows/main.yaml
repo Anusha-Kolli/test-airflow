@@ -18,6 +18,10 @@ jobs:
       working-directory: ./
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    - name: Git test
+      run: |
+        apt update && apt install -y git
+        git fetch --tags -f
     - name: Git Checks-out
       uses: actions/checkout@v1
     - name: create a release
